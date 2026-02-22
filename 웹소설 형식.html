@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 사용 라이브러리: 없음 (순수 HTML + CSS + JavaScript) -->
+
+<title>웹소설 플랫폼</title>
+
+<style>
+/* 전체 레이아웃 */
+body {
+    margin: 0;
+    background: #f5f5f5;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 메인 컨테이너 */
+.container {
+    width: 95%;
+    max-width: 900px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상단 네비게이션 */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.nav button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.nav button:hover {
+    opacity: 0.6;
+}
+
+/* 텍스트 영역 */
+.text-box {
+    height: 65vh; /* PC/모바일 자동 대응 */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="nav">
+        <button onclick="prevEpisode()">◀</button>
+        <div id="episodeTitle">1화</div>
+        <button onclick="nextEpisode()">▶</button>
+    </div>
+
+    <div class="text-box" id="content"></div>
+</div>
+
+<script>
+// ================================
+// 웹소설 데이터 배열
+// ================================
+const episodes = [
+`1화 내용입니다.
+100자 이상 작성 가능합니다.
+내용이 길어질 경우 내부 스크롤이 생성됩니다.`,
+
+`2화 내용입니다.
+텍스트는 최대 5000자까지 자연스럽게 표시됩니다.`,
+
+`3화 내용입니다.
+PC와 모바일에서 동일한 UX를 제공합니다.`
+];
+
+// 현재 화수 인덱스
+let current = 0;
+
+// ================================
+// 화면 업데이트 함수
+// ================================
+function renderEpisode() {
+    document.getElementById("content").innerText = episodes[current];
+    document.getElementById("episodeTitle").innerText = (current + 1) + "화";
+}
+
+// ================================
+// 이전 화
+// ================================
+function prevEpisode() {
+    if (current > 0) {
+        current--;
+        renderEpisode();
+    }
+}
+
+// ================================
+// 다음 화
+// ================================
+function nextEpisode() {
+    if (current < episodes.length - 1) {
+        current++;
+        renderEpisode();
+    }
+}
+
+// 최초 실행
+renderEpisode();
+</script>
+
+</body>
+</html>
